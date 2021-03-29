@@ -1,26 +1,50 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class Pig : MonoBehaviour
+public class Pig : WeakAnimal
 {
-    //특징 변수
-    [SerializeField] private string animalName;
-    [SerializeField] private int hp;
-    [SerializeField] private float walkSpeed;
+    protected override void ResetWalking()
+    {
+        base.ResetWalking();
+        RandomAction();
+    }
 
-    //상태변수
-    private bool isWalking; // 걷는지 안 걷는지 판별
-    private bool isAction; //행동중인지 아닌지 판별
 
-    //세부 능력변화 변수
-    [SerializeField] private float walkTime;
-    [SerializeField] private float waitTime;
-    private float currentTime;
+    private void Wait()
+    {
+        currentTime = waitTime;
+        Debug.Log("돼지 : 대기");
+    }
+    private void Eat()
+    {
+        currentTime = waitTime;
+        animator.SetTrigger("Eat");
+        Debug.Log("돼지 : 풀뜯기");
+    }
+    private void Peek()
+    {
+        currentTime = waitTime;
+        animator.SetTrigger("Peek");
+        Debug.Log("돼지 : 두리번");
+    }
 
-    // 필요한 컴포넌트
-    [SerializeField] private Animator anim;
-    [SerializeField] private Rigidbody rigid;
-    [SerializeField] private BoxCollider boxCol;
+    private void RandomAction()
+    {
+        isAction = true;
+        RandomNormalSound();
+        int _random = Random.Range(0, 4); //대기, 풀뜯기, 두리번, 걷기
+        //마지막 4는 포함되지 않는다. 0~3
 
+        if (_random == 0)
+            Wait();
+        if (_random == 1)
+            Eat();
+        if (_random == 2)
+            Peek();
+        if (_random == 3)
+            TryWalk();
+    }
 }

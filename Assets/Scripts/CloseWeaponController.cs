@@ -17,6 +17,7 @@ public abstract class CloseWeaponController : MonoBehaviour
     protected bool isSwing = false; //팔을 휘두르고 있는지
 
     protected RaycastHit hitInfo;
+    [SerializeField] protected LayerMask layerMask;
 
     protected void TryAttack()
     {
@@ -68,7 +69,7 @@ public abstract class CloseWeaponController : MonoBehaviour
     protected bool CheckObject()
     {
         //지정된 위치에서 앞을 향해 빛을 쏴서 범위 대에 대상이 있는가?
-        if (Physics.Raycast(transform.position, transform.forward, out hitInfo, currentCloseWeapon.range))
+        if (Physics.Raycast(transform.position, transform.forward, out hitInfo, currentCloseWeapon.range, layerMask))
         {
             return true;
         }

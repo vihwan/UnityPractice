@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fbb591c4e5561f4486ecb2cc705f737, type: 3}
+  m_Name: MeatRaw
+  m_EditorClassIdentifier: 
+  itemName: Raw Meat
+  itemDescription: "\uB3FC\uC9C0\uB97C \uC7A1\uC544 \uC5BB\uC740 \uB0A0\uACE0\uAE30\uC774\uB2E4."
+  itemImage: {fileID: 21300000, guid: 6b869a8c869fec04ea4a3556b3b52b26, type: 3}
+  itemPrefab: {fileID: 1935706838193430426, guid: d106c0104dbd5914a9df3fdef1ab690e,
+    type: 3}
+  itemType: 2
+  weaponType: 
