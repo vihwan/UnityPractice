@@ -10,6 +10,7 @@ public class Inventory : MonoBehaviour
     //필요한 컴포넌트
     [SerializeField]
     private GameObject go_Inventory_Base;
+    private SlotTooltip slotTooltip;
 
     [SerializeField]
     private GameObject go_SlotsParent;
@@ -17,10 +18,10 @@ public class Inventory : MonoBehaviour
     //슬롯들 관리
     private Slot[] slots;
 
-
     private void Start()
     {
         slots = go_SlotsParent.GetComponentsInChildren<Slot>();
+        slotTooltip = FindObjectOfType<SlotTooltip>();
     }
 
     private void Update()
@@ -44,6 +45,7 @@ public class Inventory : MonoBehaviour
     private void CloseInventory()
     {
         go_Inventory_Base.SetActive(false);
+        slotTooltip.HideToolTip();
     }
 
     private void OpenInventory()

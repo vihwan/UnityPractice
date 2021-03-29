@@ -25,12 +25,14 @@ public class Slot : MonoBehaviour
     [SerializeField]
     private GameObject go_CountImage;
     private ItemEffectDatabase theItemEffectDatabase;
+    private SlotTooltip theSlotTooltip;
 
     void Start()
     {
         theItemEffectDatabase = FindObjectOfType<ItemEffectDatabase>();
         //Prefab으로 된 Slot은 SerializeField로 선언할 경우 자신의 안에 있는 것들만 참조할 수 있기 때문에 상관없지만
         //밖에 있는 것들은 FindObjectOfType으로 하이어라키에서 검색하는것이 낫다.
+        theSlotTooltip = FindObjectOfType<SlotTooltip>();
     }
 
 
@@ -158,6 +160,7 @@ public class Slot : MonoBehaviour
             //기존 아이템 위치를 비운다.
             DragSlot.instance.dragSlot.ClearSlot();
         }
+        theSlotTooltip.HideToolTip();
     }
 
     //마우스가 슬롯에 들어갈 때 발동
