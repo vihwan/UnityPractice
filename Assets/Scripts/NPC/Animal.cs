@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Animal : MonoBehaviour
 {
@@ -9,12 +10,10 @@ public class Animal : MonoBehaviour
     [SerializeField] protected int hp;          //동물의 체력
     [SerializeField] protected float walkSpeed; //걷는 속도
     [SerializeField] protected float runSpeed; //달리는 속도
-    [SerializeField] protected float turningSpeed; //회전 속도
     [SerializeField] protected float meatMAXCount; //고기 최대 생성 갯수
 
-    protected float applySpeed; // 각 상황마다 속도를 다르게 할 수 있도록 저장하는 변수
 
-    protected Vector3 direction; //방향
+    protected Vector3 destination; //목적지
 
 
     //상태변수
@@ -39,6 +38,15 @@ public class Animal : MonoBehaviour
     [SerializeField] protected AudioClip[] soundNormal;
     [SerializeField] protected AudioClip SoundHurt;
     [SerializeField] protected AudioClip SoundDead;
+    protected NavMeshAgent nav;
+
+    /*
+    NavMeshAgent 컴포넌트를 사용하면 RigidBody 컴포넌트가 잠기는 상태가 된다.
+    작동이 되지 않기 때문에
+    */
+
+
+
 
     [SerializeField] private GameObject go_MeatRawItem_Prefab; //날고기아이템 프리팹
 
@@ -46,6 +54,7 @@ public class Animal : MonoBehaviour
     
     private void Start()
     {
+        nav = GetComponent<NavMeshAgent>();
         theAudio = GetComponent<AudioSource>();
         currentTime = waitTime;
         isAction = true;
@@ -56,19 +65,7 @@ public class Animal : MonoBehaviour
         if (!isDead)
         {
             Move();
-            Rotation();
             ElapseTime();
-        }
-    }
-
-    protected void Rotation()
-    {
-        if (isWalking || isRunning)
-        {
-            //회전이 자연스럽도록 Lerp함수 사용
-
-            Vector3 _rotation = Vector3.Lerp(transform.eulerAngles, new Vector3(0f, direction.y, 0f), turningSpeed);
-            rigid.MoveRotation(Quaternion.Euler(_rotation));
         }
     }
 
@@ -76,7 +73,8 @@ public class Animal : MonoBehaviour
     {
         if (isWalking || isRunning)
         {
-            rigid.MovePosition(transform.position + (transform.forward * applySpeed * Time.deltaTime));
+            nav.SetDestination(transform.position + destination * 5);
+            // rigid.MovePosition(transform.position + (transform.forward * applySpeed * Time.deltaTime));
         }
     }
 
@@ -96,9 +94,10 @@ public class Animal : MonoBehaviour
     protected virtual void ResetWalking()
     {
         isWalking = false; isAction = true; isRunning = false;
-        applySpeed = walkSpeed;
+        nav.speed = walkSpeed;
+        nav.ResetPath(); //네브매시경로를 초기화
         animator.SetBool("Walking", isWalking); animator.SetBool("Running", isRunning);
-        direction.Set(0f, Random.Range(0f, 360f), 0f);
+        destination.Set(Random.Range(-0.2f, 0.2f), 0f, Random.Range(0.5f, 1f));
     }
 
     protected void TryWalk()
@@ -106,7 +105,7 @@ public class Animal : MonoBehaviour
         isWalking = true;
         animator.SetBool("Walking", isWalking);
         currentTime = waitTime;
-        applySpeed = walkSpeed;
+        nav.speed = walkSpeed;
         Debug.Log("돼지 : 걷기");
     }
 

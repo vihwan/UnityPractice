@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     private float jumpForce;
 
     //상태변수
-    private bool isWalk = false;
+    public bool isWalk = false;
     public bool isRun = false;
     private bool isGround;
     private bool isCrouch = false;
@@ -58,7 +58,6 @@ public class PlayerController : MonoBehaviour
     private GunController theGunController;
     private CrossHair theCrossHair;
     private StatusController theStatusController;
-
 
 
     private CapsuleCollider capsuleCollider; //땅 착지 여부를 위한 컴포넌트
@@ -199,12 +198,12 @@ public class PlayerController : MonoBehaviour
     //달리는지 걷는지 판단하는 메소드
     private void TryRun()
     {
-        if (Input.GetKey(KeyCode.LeftShift) 
+        if (Input.GetKeyDown(KeyCode.LeftShift) //왼쪽 시프트키를 꾹 누를 경우
             && theStatusController.GetCurrentSP() > 0) //스태미너가 0 이상일 경우에만
         {
             Running();
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift) 
+        if (Input.GetKeyUp(KeyCode.LeftShift) //왼쪽 시프트키를 뗄 경우
             || theStatusController.GetCurrentSP() <= 0) //스태미너가 0이하가 되면
         {
             RunningCancel();
@@ -222,14 +221,11 @@ public class PlayerController : MonoBehaviour
     //달리게 하는 함수
     private void Running()
     {
-       // Debug.Log("달린다!");
-
         if (isCrouch == true)
             Crouch();
-
-        theGunController.CancelFineSight();
-       
+        isWalk = false;
         isRun = true;
+        theGunController.CancelFineSight();      
         theCrossHair.RunningAnimation(isRun);
         theStatusController.DecreaseStamina(10);
         applySpeed = runSpeed;
@@ -300,7 +296,7 @@ public class PlayerController : MonoBehaviour
         //1. 땅에 닿아 있는가?
         //2. 엎드린 상태가 아닌가?
         //3. 달리는 상태가 아닌가?
-        if (isGround && isCrouch == false && isRun == false)
+        if (isGround && !isCrouch  && !isRun)
         {
             //전프레임 플레이어 위치와 현재 위치와 다르면
             //위치 변동이 된것이기 때문에 값을 현재것으로 변경

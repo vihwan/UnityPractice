@@ -9,12 +9,11 @@ public class WeakAnimal : Animal
     {
         //돼지가 뛸 때는 데미지를 받았을 때
         //돼지의 방향을 플레이어의 반대방향으로 바라보게 한뒤 뛰게 만들것이다.
-        direction = Quaternion.LookRotation(transform.position - _targetPos).eulerAngles;
-
+        destination = new Vector3(transform.position.x - _targetPos.x, 0f, transform.position.z - _targetPos.z).normalized;
         currentTime = runTime;
         isWalking = false;
         isRunning = true;
-        applySpeed = runSpeed;
+        nav.speed = runSpeed;
         animator.SetBool("Running", isRunning);
         Debug.Log("도망(뛰기)");
     }

@@ -60,9 +60,18 @@ public class GunController : MonoBehaviour
                 TryFire();
                 TryReload();
                 TryFineSight();
+                //RunningWithGun();
             }
         }
     }
+
+/*    private void RunningWithGun()
+    {
+        if (thePlayerController.isWalk)
+        {
+            currentGun.anim.SetBool("Walk", thePlayerController.isWalk);
+        }
+    }*/
 
     //조준 시도
     private void TryFineSight()

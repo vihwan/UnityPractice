@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
-
     // 공유 자원 : 정적변수
     //보호수준이 떨어지고 많이 쓸수록 메모리가 낭비
     //중복 교체 시행 방지 용도

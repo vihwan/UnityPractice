@@ -19,7 +19,6 @@ public class HandController : CloseWeaponController
     {
         if (isActivate)
         {
-          //  Debug.Log("Hand isActivate");
             isAttack = true;
             TryAttack();
         }
@@ -31,8 +30,6 @@ public class HandController : CloseWeaponController
     {
         base.CloseWeaponChange(closeWeapon);
         isActivate = true;
-        Debug.Log("Hand Change()");
-        Debug.Log(isActivate);
     }
 
 
