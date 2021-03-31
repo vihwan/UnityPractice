@@ -49,7 +49,7 @@ public class FieldOfViewAngle : MonoBehaviour
         //param position, radius, layermask;
         Collider[] _target = Physics.OverlapSphere(transform.position, viewDistance, targetMask);
 
-        //타켓을 전부 뒤져서 
+        //타켓을 전부 뒤져서 대상을 찾아 행동을 시행한다.
         for(int i = 0; i < _target.Length; i++)
         {
             Transform _targetTransform = _target[i].transform;

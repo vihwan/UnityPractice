@@ -8,6 +8,7 @@ TagManager:
   - Item
   - WeakAnimal
   - StringAnimal
+  - WeakAnimalSuper
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Weapon
   - Item
   - Player
-  - 
+  - Terrain
   - 
   - 
   - 

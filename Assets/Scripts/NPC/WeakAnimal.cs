@@ -15,7 +15,6 @@ public class WeakAnimal : Animal
         isRunning = true;
         nav.speed = runSpeed;
         animator.SetBool("Running", isRunning);
-        Debug.Log("도망(뛰기)");
     }
 
     public override void Damage(int _damage, Vector3 _targetPos)

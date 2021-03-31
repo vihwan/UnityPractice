@@ -12,9 +12,7 @@ public class Animal : MonoBehaviour
     [SerializeField] protected float runSpeed; //달리는 속도
     [SerializeField] protected float meatMAXCount; //고기 최대 생성 갯수
 
-
     protected Vector3 destination; //목적지
-
 
     //상태변수
     protected bool isWalking; // 걷는지 안 걷는지 판별
@@ -30,25 +28,22 @@ public class Animal : MonoBehaviour
     protected float currentTime;
 
     // 필요한 컴포넌트
-    [SerializeField] protected GameObject go_Animal;
-    [SerializeField] protected Animator animator;
-    [SerializeField] protected Rigidbody rigid;
-    [SerializeField] protected BoxCollider boxCollider;
-    protected AudioSource theAudio;
-    [SerializeField] protected AudioClip[] soundNormal;
-    [SerializeField] protected AudioClip SoundHurt;
-    [SerializeField] protected AudioClip SoundDead;
-    protected NavMeshAgent nav;
+    [SerializeField] protected GameObject go_Animal;       //동물의 게임오브젝트
+    [SerializeField] protected Animator animator;              //동물의 애니메이터
+    [SerializeField] protected Rigidbody rigid;            //동물의 리지드바디
+    [SerializeField] protected BoxCollider boxCollider;    //동물의 바디콜라이더
+    protected AudioSource theAudio;                        //오디오소스
+    [SerializeField] protected AudioClip[] soundNormal;    //오디오클립 : 평상시 
+    [SerializeField] protected AudioClip SoundHurt;        //오디오클립 : 데미지 입을 때
+    [SerializeField] protected AudioClip SoundDead;        //오디오클립 : 죽을 때
+    protected NavMeshAgent nav;                            //동물의 NavMeshAgent
 
     /*
     NavMeshAgent 컴포넌트를 사용하면 RigidBody 컴포넌트가 잠기는 상태가 된다.
-    작동이 되지 않기 때문에
+    즉, 작동이 되지 않기 때문에
     */
 
-
-
-
-    [SerializeField] private GameObject go_MeatRawItem_Prefab; //날고기아이템 프리팹
+    [SerializeField] protected GameObject go_MeatRawItem_Prefab; //날고기아이템 프리팹
 
 
     
@@ -106,7 +101,6 @@ public class Animal : MonoBehaviour
         animator.SetBool("Walking", isWalking);
         currentTime = waitTime;
         nav.speed = walkSpeed;
-        Debug.Log("돼지 : 걷기");
     }
 
 
@@ -146,14 +140,35 @@ public class Animal : MonoBehaviour
         isWalking = false; isRunning = false; isDead = true;
         animator.SetTrigger("Dead");
 
+        //슈퍼 몬스터면 아이템이 더 많이 생성되어 한꺼번에 터져나오도록 생성
         //돼지가 죽은 자리에 고기 아이템이 생성되도록 설정
-        for (int i = 0; i < Mathf.Round(Random.Range(1, meatMAXCount)); i++)
-        {
-            Instantiate(go_MeatRawItem_Prefab, transform.position + transform.forward, Quaternion.identity);
-            Debug.Log("고기 생성");
-        }
-
+        CreateItem(); 
         StartCoroutine(SetAnimalActiveFalse());
+    }
+
+
+    //사망시 아이템 생성
+    protected virtual void CreateItem()
+    {
+        if (go_Animal.transform.CompareTag("WeakAnimal"))
+        {
+            for (int i = 0; i < Mathf.Round(Random.Range(1, meatMAXCount)); i++)
+            {
+                Instantiate(go_MeatRawItem_Prefab, transform.position + transform.up, Quaternion.identity);
+                Debug.Log("고기 생성");
+            }
+        }
+        else if (go_Animal.transform.CompareTag("WeakAnimalSuper"))
+        {
+            for (int i = 0; i < Mathf.Round(Random.Range(40, meatMAXCount)); i++)
+            {
+                //고기가 사방으로 생성되게끔 구현
+                Instantiate(go_MeatRawItem_Prefab
+                          , transform.position
+                          , Quaternion.identity);
+                Debug.Log("고기 생성");
+            }
+        }
     }
 
     //돼지가 죽으면 일정 시간 뒤에 비활성화를 하도록 설정

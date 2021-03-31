@@ -16,19 +16,16 @@ public class Pig : WeakAnimal
     private void Wait()
     {
         currentTime = waitTime;
-        Debug.Log("돼지 : 대기");
     }
     private void Eat()
     {
         currentTime = waitTime;
         animator.SetTrigger("Eat");
-        Debug.Log("돼지 : 풀뜯기");
     }
     private void Peek()
     {
         currentTime = waitTime;
         animator.SetTrigger("Peek");
-        Debug.Log("돼지 : 두리번");
     }
 
     private void RandomAction()

@@ -248,15 +248,25 @@ public class GunController : MonoBehaviour
     //총알을 맞출 때
     private void Hit()
     {
-        if(Physics.Raycast(theCam.transform.position, theCam.transform.forward + 
-            new Vector3(Random.Range(-theCrosshair.GetAccuracy() - currentGun.accuracy, theCrosshair.GetAccuracy() + currentGun.accuracy),
-                        Random.Range(-theCrosshair.GetAccuracy() - currentGun.accuracy, theCrosshair.GetAccuracy() + currentGun.accuracy),
-                        0)
+        ///**param 
+        ///origin, direction, out hitinfo, maxDistance, layerMask
+        if(Physics.Raycast(theCam.transform.position
+                          ,theCam.transform.forward + new Vector3(Random.Range(-theCrosshair.GetAccuracy() - currentGun.accuracy
+                                                                              , theCrosshair.GetAccuracy() + currentGun.accuracy)
+                                                                 ,Random.Range(-theCrosshair.GetAccuracy() - currentGun.accuracy
+                                                                              , theCrosshair.GetAccuracy() + currentGun.accuracy)
+                                                                 ,0)
                         , out hitInfo, currentGun.range, layerMask))
         {
             var Clone = Instantiate(hitEffect_Prefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
             Destroy(Clone,2f); //2초후 클론 파괴
             Debug.Log(hitInfo.transform.name);
+           
+            if(hitInfo.transform.CompareTag("WeakAnimal") || hitInfo.transform.CompareTag("WeakAnimalSuper"))
+            {
+                Debug.Log("몬스터 대상 데미지 계산 실행");
+                hitInfo.transform.GetComponent<WeakAnimal>().Damage(currentGun.damage, transform.position);
+            }
         }
     }
 
