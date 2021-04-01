@@ -55,7 +55,7 @@ public class GunController : MonoBehaviour
         if (isActivate)
         {
             GunFireRateCalculate();
-            if (!Inventory.inventoryActivated)
+            if (!Inventory.inventoryActivated && !CraftManual.isActivated && !CraftManual.isPreviewActivated)
             {
                 TryFire();
                 TryReload();
@@ -264,7 +264,6 @@ public class GunController : MonoBehaviour
            
             if(hitInfo.transform.CompareTag("WeakAnimal") || hitInfo.transform.CompareTag("WeakAnimalSuper"))
             {
-                Debug.Log("몬스터 대상 데미지 계산 실행");
                 hitInfo.transform.GetComponent<WeakAnimal>().Damage(currentGun.damage, transform.position);
             }
         }

@@ -16,8 +16,8 @@ public class Craft
 public class CraftManual : MonoBehaviour
 {
     //상태변수
-    private bool isActivated = false;
-    private bool isPreviewActivated = false;
+    public static bool isActivated = false;         //크래프트 UI가 활성화되어 있는가?
+    public static bool isPreviewActivated = false;  //미리보기가 생성되어있는가?
 
     private GameObject go_Preview; //미리보기 프리팹을 담을 변수
     private GameObject go_Prefab; //실제 생성될 프리팹
@@ -78,6 +78,7 @@ public class CraftManual : MonoBehaviour
                         , Quaternion.identity); ;
         go_Prefab = craftsArray[craftsArrayNum].go_Prefab;
         isPreviewActivated = true;
+        isActivated = false;
         go_BaseUI.SetActive(false);
     }
 
@@ -86,12 +87,14 @@ public class CraftManual : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab) && !isPreviewActivated)
             Window();
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-            Cancel();
+        if(isActivated || isPreviewActivated)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+                Cancel();
 
-        if (Input.GetButtonDown("Fire1"))
-            Build();
-
+            if (Input.GetButtonDown("Fire1"))
+                Build();
+        }
         if (isPreviewActivated)
             PreViewPostionUpdate();
     }

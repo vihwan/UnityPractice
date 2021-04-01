@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -3106911490088463857}
   - component: {fileID: 6838405668679866494}
   m_Layer: 0
-  m_Name: FireCamp PreView
+  m_Name: FireCamp Preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,8 +25,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7366387728176409212}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 50.85, y: 6.9979615, z: 114.52892}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2540063530347373943}
@@ -62,8 +62,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.1801605, y: 0.6022296, z: 1.1876297}
+  m_Center: {x: 0.16514206, y: 0.1988852, z: -0.09381485}
 --- !u!1001 &7366387728067048575
 PrefabInstance:
   m_ObjectHideFlags: 0

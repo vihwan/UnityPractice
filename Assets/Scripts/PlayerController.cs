@@ -94,16 +94,17 @@ public class PlayerController : MonoBehaviour
     //1초에 대략 60번 실행되는 함수
     void Update()
     {
-        IsGround();
-        TryJump();
-        TryRun(); //걷는지 뛰는지 판단하는 메소드. 반드시 Move 위에 있어야함
-        TryCrouch();
-        Move();
-        MoveCheck();
-        if (!Inventory.inventoryActivated)
+        IsGround();       
+        //인벤토리와 크래프트UI가 비활성화 중일 때에만 캐릭터가 동작하도록 한다.
+        if (!Inventory.inventoryActivated && !CraftManual.isActivated)
         {
             CharacterRotation();
             CameraRotation();
+            TryJump();
+            TryRun(); //걷는지 뛰는지 판단하는 메소드. 반드시 Move 위에 있어야함
+            TryCrouch();
+            Move();
+            MoveCheck();
         }
     }
 
@@ -191,14 +192,14 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("점프한다!");
         if (isCrouch == true)
             Crouch();
-        theStatusController.DecreaseStamina(100);
+        theStatusController.DecreaseStamina(50);
         myRigid.velocity = transform.up * jumpForce;   
     }
 
     //달리는지 걷는지 판단하는 메소드
     private void TryRun()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) //왼쪽 시프트키를 꾹 누를 경우
+        if (Input.GetKey(KeyCode.LeftShift) //왼쪽 시프트키를 꾹 누를 경우
             && theStatusController.GetCurrentSP() > 0) //스태미너가 0 이상일 경우에만
         {
             Running();

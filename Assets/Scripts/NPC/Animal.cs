@@ -164,9 +164,8 @@ public class Animal : MonoBehaviour
             {
                 //고기가 사방으로 생성되게끔 구현
                 Instantiate(go_MeatRawItem_Prefab
-                          , transform.position
-                          , Quaternion.identity);
-                Debug.Log("고기 생성");
+                          , transform.position + new Vector3(Random.Range(-1f, 1f), 2f, Random.Range(-1f, 1f))
+                          , Quaternion.identity);           
             }
         }
     }

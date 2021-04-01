@@ -14,14 +14,14 @@ public abstract class CloseWeaponController : MonoBehaviour
 
     //공격중
     protected bool isAttack = false; //공격중인지
-    protected bool isSwing = false; //팔을 휘두르고 있는지
+    protected bool isSwing = false; //손(무기)를 휘두르고 있는 중인지
 
     protected RaycastHit hitInfo;
     [SerializeField] protected LayerMask layerMask;
 
     protected void TryAttack()
     {
-        if (!Inventory.inventoryActivated)
+        if (!Inventory.inventoryActivated && !CraftManual.isActivated && !CraftManual.isPreviewActivated)
         {
             if (Input.GetButton("Fire1"))
             {
@@ -73,7 +73,7 @@ public abstract class CloseWeaponController : MonoBehaviour
         {
             return true;
         }
-        return true;
+        return false;
     }
 
     //가상함수 : 완성함수 이지만 추가 편집이 가능한 함수

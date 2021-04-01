@@ -77,7 +77,6 @@ public class WeaponManager : MonoBehaviour
 
     private void Update()
     {
-        //임시
         if (!isChangeWeapon)
         {
             //숫자 1 버튼을 눌렀을 경우
@@ -85,7 +84,8 @@ public class WeaponManager : MonoBehaviour
             {
                 StartCoroutine(ChangeWeaponCoroutine("HAND", "맨손"));
             }
-            else if (Input.GetKeyDown(KeyCode.Alpha2)){ //숫자 2를 눌렀을 경우
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            { //숫자 2를 눌렀을 경우
 
                 //무기 교체 실행(서브머신건)
                 //코루틴으로 작성
@@ -109,43 +109,53 @@ public class WeaponManager : MonoBehaviour
     }
 
     //퀵슬롯 1,2,3,4로 만들어서 사용
-    public IEnumerator ChangeWeaponCoroutine(string type, string name)
+    public IEnumerator ChangeWeaponCoroutine(string _type, string _name)
     {
+        if(Inventory.inventoryActivated || CraftManual.isActivated)
+        {//인벤토리가 열려있거나 크래프트 UI가 열려있다면 무기교체를 하지 않는다.
+            yield break;
+        }
+
+        if(currentWeaponType == _type)
+        {//같은 무기의 타입이라면 교체하지 않는다. (임시)
+         //나중에 무기의 이름까지 비교하도록 수정할 것.
+            yield break;
+        }
         isChangeWeapon = true;
         currentWeaponAnim.SetTrigger("Weapon_Out"); //무기 집어넣음
 
         yield return new WaitForSeconds(changeWeaponDelayTime);
 
         CancelPreWeaponAction(); //직전 행동 취소
-        WeaponChange(type, name);
+        WeaponChange(_type, _name);
 
         //무기 넣고 꺼내고 난 이후까지 대기
         yield return new WaitForSeconds(changeWeaponEndDelayTime);
 
-        currentWeaponType = type;
+        currentWeaponType = _type;
         isChangeWeapon = false;
     }
 
-    private void WeaponChange(string type, string name)
+    private void WeaponChange(string _type, string _name)
     {
-        if(type == "GUN")
+        if (_type == "GUN")
         {
-            theGunController.GunChange(gunDictionary[name]);
+            theGunController.GunChange(gunDictionary[_name]);
             Debug.Log("총으로 체인지");
         }
-        else if(type == "HAND")
+        else if (_type == "HAND")
         {
-            theHandController.CloseWeaponChange(handDictionary[name]);
+            theHandController.CloseWeaponChange(handDictionary[_name]);
             Debug.Log("손으로 체인지");
         }
-        else if (type == "AXE")
+        else if (_type == "AXE")
         {
-            theAxeController.CloseWeaponChange(axeDictionary[name]);
+            theAxeController.CloseWeaponChange(axeDictionary[_name]);
             Debug.Log("도끼로 체인지");
         }
-        else if (type == "PICKAXE")
+        else if (_type == "PICKAXE")
         {
-            thePickaxeController.CloseWeaponChange(pickaxeDictionary[name]);
+            thePickaxeController.CloseWeaponChange(pickaxeDictionary[_name]);
             Debug.Log("곡갱이로 체인지");
         }
     }
