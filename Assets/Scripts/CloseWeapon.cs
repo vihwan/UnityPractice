@@ -7,7 +7,6 @@ public class CloseWeapon : MonoBehaviour
 
     public string closeWeaponName; //너클이나 맨손 구분
 
-
     //무기 유형
     public bool isHand;
     public bool isAxe;

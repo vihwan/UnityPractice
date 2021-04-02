@@ -94,10 +94,10 @@ public class PlayerController : MonoBehaviour
     //1초에 대략 60번 실행되는 함수
     void Update()
     {
-        IsGround();       
-        //인벤토리와 크래프트UI가 비활성화 중일 때에만 캐릭터가 동작하도록 한다.
-        if (!Inventory.inventoryActivated && !CraftManual.isActivated)
+        if (GameManager.canPlayerMove)
         {
+            IsGround();
+            //인벤토리와 크래프트UI가 비활성화 중일 때에만 캐릭터가 동작하도록 한다.
             CharacterRotation();
             CameraRotation();
             TryJump();
@@ -105,10 +105,11 @@ public class PlayerController : MonoBehaviour
             TryCrouch();
             Move();
             MoveCheck();
+
         }
     }
 
-   
+
 
     private void TryCrouch()
     {
@@ -148,11 +149,11 @@ public class PlayerController : MonoBehaviour
             //보간함수를 이용해서 로그함수같은 증가율을 만들도록 하자.
             posY = Mathf.Lerp(posY, applyCrouchPosY, 0.3f);
             //localPostion은 벡터타입이기에 넣을때도 벡터로 넣어야함
-            theCamera.transform.localPosition = new Vector3(0,posY,0);
+            theCamera.transform.localPosition = new Vector3(0, posY, 0);
 
             //보간함수의 단점은 딱 정수로 떨어지지 않기 때문에
             //계산 횟수를 제한한다.
-            if(count > 15)
+            if (count > 15)
                 break;
             yield return null; //1프레임 대기
         }
@@ -173,7 +174,7 @@ public class PlayerController : MonoBehaviour
 
         isGround = Physics.Raycast(transform.position, Vector3.down, capsuleCollider.bounds.extents.y + 0.3f);
         theCrossHair.JumpingAnimation(!isGround);
-        
+
     }
 
     //점프 시도
@@ -193,7 +194,7 @@ public class PlayerController : MonoBehaviour
         if (isCrouch == true)
             Crouch();
         theStatusController.DecreaseStamina(50);
-        myRigid.velocity = transform.up * jumpForce;   
+        myRigid.velocity = transform.up * jumpForce;
     }
 
     //달리는지 걷는지 판단하는 메소드
@@ -226,7 +227,7 @@ public class PlayerController : MonoBehaviour
             Crouch();
         isWalk = false;
         isRun = true;
-        theGunController.CancelFineSight();      
+        theGunController.CancelFineSight();
         theCrossHair.RunningAnimation(isRun);
         theStatusController.DecreaseStamina(10);
         applySpeed = runSpeed;
@@ -262,7 +263,7 @@ public class PlayerController : MonoBehaviour
         //localEulerAngle : 로테이션 x,y,z라고 생각하면 된다.
         theCamera.transform.localEulerAngles = new Vector3(currentCameraRotationX, 0f, 0f);
 
-       // Debug.Log(myRigid.rotation.eulerAngles);//3원소
+        // Debug.Log(myRigid.rotation.eulerAngles);//3원소
     }
 
     //움직임 실행
@@ -297,12 +298,12 @@ public class PlayerController : MonoBehaviour
         //1. 땅에 닿아 있는가?
         //2. 엎드린 상태가 아닌가?
         //3. 달리는 상태가 아닌가?
-        if (isGround && !isCrouch  && !isRun)
+        if (isGround && !isCrouch && !isRun)
         {
             //전프레임 플레이어 위치와 현재 위치와 다르면
             //위치 변동이 된것이기 때문에 값을 현재것으로 변경
-            if (Vector3.Distance(lastPos,transform.position) >= 0.01)
-                //경사면에서 살짝 미끄러져도 걷는다고 판단하지 않도록 위처럼 설계
+            if (Vector3.Distance(lastPos, transform.position) >= 0.01)
+            //경사면에서 살짝 미끄러져도 걷는다고 판단하지 않도록 위처럼 설계
             {
                 isWalk = true;
             }
@@ -313,5 +314,5 @@ public class PlayerController : MonoBehaviour
             theCrossHair.WalkingAnimation(isWalk);
             lastPos = transform.position;
         }
-    }       
+    }
 }

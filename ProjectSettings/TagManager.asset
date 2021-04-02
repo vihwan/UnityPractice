@@ -9,6 +9,7 @@ TagManager:
   - WeakAnimal
   - StringAnimal
   - WeakAnimalSuper
+  - Terrain
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - Item
   - Player
   - Terrain
-  - 
+  - Building
   - 
   - 
   - 

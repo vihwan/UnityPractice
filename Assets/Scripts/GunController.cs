@@ -17,7 +17,7 @@ public class GunController : MonoBehaviour
     private float currentFireRate; //연사속도 조절
 
     //상태변수
-    private bool isReload = false; 
+    private bool isReload = false;
     [HideInInspector]
     public bool isFineSightMode = false;
 
@@ -45,33 +45,33 @@ public class GunController : MonoBehaviour
         theCrosshair = FindObjectOfType<CrossHair>();
         thePlayerController = FindObjectOfType<PlayerController>();
 
-/*        WeaponManager.currentWeapon = currentGun.GetComponent<Transform>();
-        WeaponManager.currentWeaponAnim = currentGun.anim;*/
+        /*        WeaponManager.currentWeapon = currentGun.GetComponent<Transform>();
+                WeaponManager.currentWeaponAnim = currentGun.anim;*/
     }
 
 
     private void Update()
     {
-        if (isActivate)
+        if (GameManager.canPlayerMove)
         {
             GunFireRateCalculate();
-            if (!Inventory.inventoryActivated && !CraftManual.isActivated && !CraftManual.isPreviewActivated)
+
+            if (isActivate && !CraftManual.isPreviewActivated)
             {
                 TryFire();
                 TryReload();
                 TryFineSight();
-                //RunningWithGun();
             }
         }
     }
 
-/*    private void RunningWithGun()
-    {
-        if (thePlayerController.isWalk)
+    /*    private void RunningWithGun()
         {
-            currentGun.anim.SetBool("Walk", thePlayerController.isWalk);
-        }
-    }*/
+            if (thePlayerController.isWalk)
+            {
+                currentGun.anim.SetBool("Walk", thePlayerController.isWalk);
+            }
+        }*/
 
     //조준 시도
     private void TryFineSight()
@@ -80,14 +80,14 @@ public class GunController : MonoBehaviour
         {
             FineSight();
         }
-        
-      
+
+
     }
 
     //조준 취소
     public void CancelFineSight()
     {
-        if(isFineSightMode == true)
+        if (isFineSightMode == true)
         {
             FineSight();
         }
@@ -120,7 +120,7 @@ public class GunController : MonoBehaviour
         while (currentGun.transform.localPosition != currentGun.fineSightOriginPos)
         {
             currentGun.transform.localPosition = Vector3.Lerp(currentGun.transform.localPosition,
-                currentGun.fineSightOriginPos,0.2f);
+                currentGun.fineSightOriginPos, 0.2f);
 
             yield return null;
         }
@@ -144,7 +144,7 @@ public class GunController : MonoBehaviour
     private void TryReload()
     {
 
-        if(Input.GetKeyDown(KeyCode.R) && isReload == false 
+        if (Input.GetKeyDown(KeyCode.R) && isReload == false
             && currentGun.currentBulletCount < currentGun.reloadBulletCount)
         {
             CancelFineSight();
@@ -155,7 +155,7 @@ public class GunController : MonoBehaviour
     //발사 시도
     private void TryFire()
     {
-        if(thePlayerController.isRun == false)
+        if (thePlayerController.isRun == false)
         {
             //Fire 입력과 연사속도가 0이하로 발사할 준비가 되었다면
             if (Input.GetButton("Fire1") && currentFireRate <= 0 && isReload == false)
@@ -168,7 +168,7 @@ public class GunController : MonoBehaviour
     //발사전
     private void Fire()
     {
-        if(isReload == false)
+        if (isReload == false)
         {
             if (currentGun.currentBulletCount > 0)
             {
@@ -181,7 +181,7 @@ public class GunController : MonoBehaviour
                 //코루틴으로
                 StartCoroutine(ReloadCoroutine());
             }
-        }         
+        }
     }
 
 
@@ -199,7 +199,7 @@ public class GunController : MonoBehaviour
 
             yield return new WaitForSeconds(currentGun.reloadTime);
 
-            if(currentGun.carryBulletCount >= currentGun.reloadBulletCount)
+            if (currentGun.carryBulletCount >= currentGun.reloadBulletCount)
             {
                 currentGun.currentBulletCount = currentGun.reloadBulletCount;
                 currentGun.carryBulletCount -= currentGun.reloadBulletCount;
@@ -242,7 +242,7 @@ public class GunController : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(RetroActionCoroutine());
 
-       
+
     }
 
     //총알을 맞출 때
@@ -250,19 +250,19 @@ public class GunController : MonoBehaviour
     {
         ///**param 
         ///origin, direction, out hitinfo, maxDistance, layerMask
-        if(Physics.Raycast(theCam.transform.position
-                          ,theCam.transform.forward + new Vector3(Random.Range(-theCrosshair.GetAccuracy() - currentGun.accuracy
+        if (Physics.Raycast(theCam.transform.position
+                          , theCam.transform.forward + new Vector3(Random.Range(-theCrosshair.GetAccuracy() - currentGun.accuracy
                                                                               , theCrosshair.GetAccuracy() + currentGun.accuracy)
-                                                                 ,Random.Range(-theCrosshair.GetAccuracy() - currentGun.accuracy
+                                                                 , Random.Range(-theCrosshair.GetAccuracy() - currentGun.accuracy
                                                                               , theCrosshair.GetAccuracy() + currentGun.accuracy)
-                                                                 ,0)
+                                                                 , 0)
                         , out hitInfo, currentGun.range, layerMask))
         {
             var Clone = Instantiate(hitEffect_Prefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
-            Destroy(Clone,2f); //2초후 클론 파괴
+            Destroy(Clone, 2f); //2초후 클론 파괴
             Debug.Log(hitInfo.transform.name);
-           
-            if(hitInfo.transform.CompareTag("WeakAnimal") || hitInfo.transform.CompareTag("WeakAnimalSuper"))
+
+            if (hitInfo.transform.CompareTag("WeakAnimal") || hitInfo.transform.CompareTag("WeakAnimalSuper"))
             {
                 hitInfo.transform.GetComponent<WeakAnimal>().Damage(currentGun.damage, transform.position);
             }
@@ -273,24 +273,24 @@ public class GunController : MonoBehaviour
     //반동 실행
     IEnumerator RetroActionCoroutine()
     {
-        Vector3 recoilBack = new Vector3(currentGun.retroActionForce, originPos.y,originPos.z);// 평상시의 최대 반동
-        Vector3 retroActionRecoilBack = new Vector3(currentGun.retroActioFineSigntForce,currentGun.fineSightOriginPos.y,currentGun.fineSightOriginPos.z); // 정조준 했을때 최대 반동
+        Vector3 recoilBack = new Vector3(currentGun.retroActionForce, originPos.y, originPos.z);// 평상시의 최대 반동
+        Vector3 retroActionRecoilBack = new Vector3(currentGun.retroActioFineSigntForce, currentGun.fineSightOriginPos.y, currentGun.fineSightOriginPos.z); // 정조준 했을때 최대 반동
 
         if (!isFineSightMode)
         {
             currentGun.transform.localPosition = originPos;
             //반동 시작
-            while(currentGun.transform.localPosition.x <= currentGun.retroActionForce - 0.02f)
+            while (currentGun.transform.localPosition.x <= currentGun.retroActionForce - 0.02f)
             {
                 currentGun.transform.localPosition = Vector3.Lerp(currentGun.transform.localPosition, recoilBack, 0.4f);
                 yield return null;
             }
 
             //원위치
-            while(currentGun.transform.localPosition != originPos)
+            while (currentGun.transform.localPosition != originPos)
             {
                 currentGun.transform.localPosition = Vector3.Lerp(currentGun.transform.localPosition, originPos, 0.1f);
-                yield return null;  
+                yield return null;
             }
 
         }
@@ -316,7 +316,7 @@ public class GunController : MonoBehaviour
     //연사속도가 0이 되면 다음 총알을 발사할 수 있는 상태가 되도록
     private void GunFireRateCalculate()
     {
-       if(currentFireRate > 0)
+        if (currentFireRate > 0)
         {
             currentFireRate -= Time.deltaTime; //60분의 1
             //이를 update로 돌리니 1초에 1 감소
@@ -342,7 +342,7 @@ public class GunController : MonoBehaviour
 
     public void GunChange(Gun gun)
     {
-        if(WeaponManager.currentWeapon != null)
+        if (WeaponManager.currentWeapon != null)
         {
             WeaponManager.currentWeapon.gameObject.SetActive(false);
         }
@@ -352,7 +352,7 @@ public class GunController : MonoBehaviour
 
 
         //무기 교체시 위치가 바뀔수 있기에 초기화
-        currentGun.transform.localPosition = Vector3.zero; 
+        currentGun.transform.localPosition = Vector3.zero;
         currentGun.gameObject.SetActive(true);
         isActivate = true;
     }

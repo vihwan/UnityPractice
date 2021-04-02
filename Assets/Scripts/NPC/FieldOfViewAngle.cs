@@ -65,7 +65,6 @@ public class FieldOfViewAngle : MonoBehaviour
                     {
                         if(_hit.transform.name == "Player") //빛을 쐈을 때 플레이어 여야만 반응하도록
                         {
-                            Debug.Log("플레이어가 돼지 시야 내에 있습니다");
                             Debug.DrawRay(transform.position + transform.up, _direction, Color.blue);
                             thePig.Run(_hit.transform.position);
                         }

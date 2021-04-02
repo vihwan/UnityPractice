@@ -9,7 +9,7 @@ public class ActionController : MonoBehaviour
     [SerializeField]
     private float range; //습득 가능한 최대거리
 
-    private bool pickupActivated = false;
+    public static bool pickupActivated = false;
 
 
     private RaycastHit hitInfo;

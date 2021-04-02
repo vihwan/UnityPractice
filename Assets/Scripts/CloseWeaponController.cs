@@ -7,13 +7,12 @@ public abstract class CloseWeaponController : MonoBehaviour
     //미완성 : HitCoroutine();
     //abstract는 다른 클래스에서 직접적으로 추가시킬 수 없다.
 
-
     //현재 장착된 Hand형 타입 무기
     [SerializeField]
     protected CloseWeapon currentCloseWeapon;
 
     //공격중
-    protected bool isAttack = false; //공격중인지
+    public static bool isAttack = false; //공격중인지
     protected bool isSwing = false; //손(무기)를 휘두르고 있는 중인지
 
     protected RaycastHit hitInfo;
@@ -21,17 +20,20 @@ public abstract class CloseWeaponController : MonoBehaviour
 
     protected void TryAttack()
     {
-        if (!Inventory.inventoryActivated && !CraftManual.isActivated && !CraftManual.isPreviewActivated)
+        if (GameManager.canPlayerMove)
         {
-            if (Input.GetButton("Fire1"))
+            if (!Inventory.inventoryActivated && !CraftManual.isPreviewActivated)
             {
-                if (isAttack == true)
+                if (Input.GetButton("Fire1"))
                 {
-                    //Debug.Log("근접 공격시도 실행");
-                    //딜레이를 준다.
-                    //공격 코루틴
-                    StopAllCoroutines();
-                    StartCoroutine(AttackCoroutine());
+                    if (isAttack == true)
+                    {
+                        //Debug.Log("근접 공격시도 실행");
+                        //딜레이를 준다.
+                        //공격 코루틴
+                        StopAllCoroutines();
+                        StartCoroutine(AttackCoroutine());
+                    }
                 }
             }
         }

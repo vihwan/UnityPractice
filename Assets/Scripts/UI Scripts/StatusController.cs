@@ -30,8 +30,8 @@ public class StatusController : MonoBehaviour
 
     //방어력
     [SerializeField]
-    private int dp;
-    private int currentDp;
+    private int dp;          //방어력 
+    private int currentDp;   //현재 방어력
 
     //배고픔
     [SerializeField]
@@ -109,11 +109,15 @@ public class StatusController : MonoBehaviour
 
     public void DecreaseHp(int _count)
     {
+        if(currentHp == hp)
+        {
+            DecreaseDp(_count);
+            return;
+        }
         currentHp -= _count;
 
         if (currentHp <= 0)
             Debug.Log("캐릭터의 HP가 0이 되었습니다."); //실제로는 게임 오버
-
     }
 
     public void IncreaseSp(int _count)

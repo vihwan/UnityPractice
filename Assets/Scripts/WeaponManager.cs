@@ -111,8 +111,8 @@ public class WeaponManager : MonoBehaviour
     //퀵슬롯 1,2,3,4로 만들어서 사용
     public IEnumerator ChangeWeaponCoroutine(string _type, string _name)
     {
-        if(Inventory.inventoryActivated || CraftManual.isActivated)
-        {//인벤토리가 열려있거나 크래프트 UI가 열려있다면 무기교체를 하지 않는다.
+        if(!GameManager.canPlayerMove || CraftManual.isPreviewActivated)
+        {//플레이어가 움직일 수 없는 상태 혹은 건축물 미리보기 프리팹이 실행중이라면 무기 교체 동작이 안된다.
             yield break;
         }
 
