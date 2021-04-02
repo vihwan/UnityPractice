@@ -18,10 +18,25 @@ public class CrossHair : MonoBehaviour
     [SerializeField]
     private GunController theGunController;
 
+
+    public void DontAminationInWater(string _state, bool _flag)
+    {
+        if (!GameManager.isWater)
+        {
+            switch (_state)
+            {
+                case "walk": WalkingAnimation(_flag); break;
+                case "run": RunningAnimation(_flag); break;
+                case "jump": JumpingAnimation(_flag); break;
+                case "crouch": CrouchingAnimation(_flag);break;
+                case "finesight": FineSightAnimation(_flag); break;
+            }
+        }
+    }
+
     
     public void WalkingAnimation(bool _flag)
-    {
-    
+    {    
         animator.SetBool("Walking", _flag);
     }
 

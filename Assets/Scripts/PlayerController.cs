@@ -15,6 +15,12 @@ public class PlayerController : MonoBehaviour
     private float runSpeed; //달리기 속도
     [SerializeField]
     private float crouchSpeed;
+    [SerializeField]
+    private float swimSpeed; //수영 속도
+    [SerializeField]
+    private float swimFastSpeed; //빠르게 수영 속도
+    [SerializeField]
+    private float upSwimSpeed; //물속에서 위로 올라오는
 
     private float applySpeed; //달리거나 걷거나 하는 것을 함수를 따로 만들지 않고 적용시키도록 만든 공간
 
@@ -66,6 +72,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private CloseWeapon currentCloseWeapon;
 
+    private string isAnimState;
+    public string IsAnimState { get => isAnimState; set => isAnimState = value; }
+
+
 
 
     // Start is called before the first frame update
@@ -96,20 +106,32 @@ public class PlayerController : MonoBehaviour
     {
         if (GameManager.canPlayerMove)
         {
+            WaterCheck();
             IsGround();
             //인벤토리와 크래프트UI가 비활성화 중일 때에만 캐릭터가 동작하도록 한다.
             CharacterRotation();
             CameraRotation();
             TryJump();
-            TryRun(); //걷는지 뛰는지 판단하는 메소드. 반드시 Move 위에 있어야함
-            TryCrouch();
+            if (!GameManager.isWater)
+            {
+                TryRun(); //걷는지 뛰는지 판단하는 메소드. 반드시 Move 위에 있어야함
+                TryCrouch();
+            }      
             Move();
             MoveCheck();
 
         }
     }
 
-
+    private void WaterCheck()
+    {
+        if (GameManager.isWater)
+        {
+            if (Input.GetKey(KeyCode.LeftShift))
+                applySpeed = swimFastSpeed;
+            applySpeed = swimSpeed;
+        }
+    }
 
     private void TryCrouch()
     {
@@ -122,7 +144,8 @@ public class PlayerController : MonoBehaviour
     private void Crouch()
     {
         isCrouch = !isCrouch;
-        theCrossHair.CrouchingAnimation(isCrouch);
+        IsAnimState = "crouch";
+        theCrossHair.DontAminationInWater(IsAnimState, isCrouch);
         if (isCrouch)
         {
             applySpeed = crouchSpeed;
@@ -173,7 +196,8 @@ public class PlayerController : MonoBehaviour
         //어디에서, 어느 방향으로, 얼만큼, (누굴 맞췄는지) 등등
 
         isGround = Physics.Raycast(transform.position, Vector3.down, capsuleCollider.bounds.extents.y + 0.3f);
-        theCrossHair.JumpingAnimation(!isGround);
+        IsAnimState = "jump";
+        theCrossHair.DontAminationInWater(IsAnimState, !isGround);
 
     }
 
@@ -181,10 +205,19 @@ public class PlayerController : MonoBehaviour
     private void TryJump()
     {
         if (Input.GetKeyDown(KeyCode.Space) && isGround
-            && theStatusController.GetCurrentSP() > 0) //스태미너가 0이상인가?
+            && theStatusController.GetCurrentSP() > 0 && !GameManager.isWater) //스태미너가 0이상인가?
         {
             Jump();
         }
+        else if (Input.GetKey(KeyCode.Space) && GameManager.isWater)
+        {
+            UpSwim();
+        }
+    }
+
+    private void UpSwim()
+    {
+        myRigid.velocity = transform.up * upSwimSpeed;
     }
 
     //점프
@@ -216,7 +249,8 @@ public class PlayerController : MonoBehaviour
     private void RunningCancel()
     {
         isRun = false;
-        theCrossHair.RunningAnimation(isRun);
+        IsAnimState = "Run";
+        theCrossHair.DontAminationInWater(IsAnimState,isRun);
         applySpeed = walkSpeed;
     }
 
@@ -227,8 +261,9 @@ public class PlayerController : MonoBehaviour
             Crouch();
         isWalk = false;
         isRun = true;
+        isAnimState = "Run";
         theGunController.CancelFineSight();
-        theCrossHair.RunningAnimation(isRun);
+        theCrossHair.DontAminationInWater(IsAnimState, isRun);
         theStatusController.DecreaseStamina(10);
         applySpeed = runSpeed;
     }
@@ -311,7 +346,8 @@ public class PlayerController : MonoBehaviour
             {
                 isWalk = false;
             }
-            theCrossHair.WalkingAnimation(isWalk);
+            isAnimState = "walk";
+            theCrossHair.DontAminationInWater(isAnimState,isWalk);
             lastPos = transform.position;
         }
     }

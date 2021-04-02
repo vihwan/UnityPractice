@@ -109,15 +109,17 @@ public class StatusController : MonoBehaviour
 
     public void DecreaseHp(int _count)
     {
-        if(currentHp == hp)
+        if(currentDp > 0)
         {
-            DecreaseDp(_count);
-            return;
+            DecreaseDp(_count);           
         }
-        currentHp -= _count;
+        else
+        {
+            currentHp -= _count;
 
-        if (currentHp <= 0)
-            Debug.Log("캐릭터의 HP가 0이 되었습니다."); //실제로는 게임 오버
+            if (currentHp <= 0)
+                Debug.Log("캐릭터의 HP가 0이 되었습니다."); //실제로는 게임 오버
+        }
     }
 
     public void IncreaseSp(int _count)

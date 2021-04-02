@@ -38,6 +38,8 @@ public class GunController : MonoBehaviour
     private GameObject hitEffect_Prefab; //타격 피격 이펙트
     private PlayerController thePlayerController;
 
+    public string IsAnimState { get; set ; }
+
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -99,7 +101,8 @@ public class GunController : MonoBehaviour
     {
         isFineSightMode = !isFineSightMode;
         currentGun.anim.SetBool("FineSightMode", isFineSightMode);
-        theCrosshair.FineSightAnimation(isFineSightMode);
+        IsAnimState = "finesight";
+        theCrosshair.DontAminationInWater(IsAnimState,isFineSightMode);
 
         if (isFineSightMode)
         {
