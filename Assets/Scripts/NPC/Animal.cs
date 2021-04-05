@@ -150,6 +150,8 @@ public class Animal : MonoBehaviour
     //사망시 아이템 생성
     protected virtual void CreateItem()
     {
+        go_MeatRawItem_Prefab.GetComponent<Rigidbody>().AddForce(transform.position, ForceMode.Impulse);
+
         if (go_Animal.transform.CompareTag("WeakAnimal"))
         {
             for (int i = 0; i < Mathf.Round(Random.Range(1, meatMAXCount)); i++)
@@ -165,7 +167,7 @@ public class Animal : MonoBehaviour
                 //고기가 사방으로 생성되게끔 구현
                 Instantiate(go_MeatRawItem_Prefab
                           , transform.position + new Vector3(Random.Range(-1f, 1f), 2f, Random.Range(-1f, 1f))
-                          , Quaternion.identity);           
+                          , Quaternion.identity);     
             }
         }
     }

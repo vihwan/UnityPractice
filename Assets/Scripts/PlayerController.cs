@@ -249,7 +249,7 @@ public class PlayerController : MonoBehaviour
     private void RunningCancel()
     {
         isRun = false;
-        IsAnimState = "Run";
+        IsAnimState = "run";
         theCrossHair.DontAminationInWater(IsAnimState,isRun);
         applySpeed = walkSpeed;
     }
@@ -261,7 +261,7 @@ public class PlayerController : MonoBehaviour
             Crouch();
         isWalk = false;
         isRun = true;
-        isAnimState = "Run";
+        isAnimState = "run";
         theGunController.CancelFineSight();
         theCrossHair.DontAminationInWater(IsAnimState, isRun);
         theStatusController.DecreaseStamina(10);

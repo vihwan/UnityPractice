@@ -13,7 +13,12 @@ public class GameManager : MonoBehaviour
 
     public static bool isPause = false;
 
+    public static bool isPreviewCanvasActivated = true;
+
     private WeaponManager theWeaponManager;
+    private SaveAndLoad theSaveAndLoad;
+    [SerializeField]
+    private Canvas thePreviewCanvas;
 
     private bool flag = false;
 
@@ -26,7 +31,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isOpenInventory || isOpenCraftManual || isPause)
+        if (isOpenInventory || isOpenCraftManual || isPause || isPreviewCanvasActivated)
         {
             Cursor.lockState = CursorLockMode.None; //커서 화면 가두기 해제
             Cursor.visible = true;
@@ -58,5 +63,12 @@ public class GameManager : MonoBehaviour
                 flag = false;
             }
         }
+    }
+
+
+    public void PreviewCanvasDeActivated()
+    {
+        isPreviewCanvasActivated = false;
+        thePreviewCanvas.gameObject.SetActive(false);
     }
 }

@@ -9,14 +9,14 @@ public class DayAndNight : MonoBehaviour
 
     [SerializeField] private float fogDensityDeltaTime; //시간에 따른 안개밀도 증감량 forDensityDeltatime* 100  = secondPerRealTimeSecond
     [SerializeField] private float nightFogDensity; //밤에 얼마나 짙게 깔리는지
-    private float dayFogDensity; //낮 상태의 fog 밀도
+    [SerializeField] private float dayFogDensity; //낮 상태의 fog 밀도
 
-    private float currentFogDensity; //현재 안개밀도
+    [SerializeField] private float currentFogDensity; //현재 안개밀도
 
     void Start()
     {
         fogDensityDeltaTime = secondPerRealTimeSecond * 0.01f;
-        dayFogDensity = RenderSettings.fogDensity;
+        RenderSettings.fog = false;
     }
 
 
@@ -30,6 +30,7 @@ public class DayAndNight : MonoBehaviour
         if (transform.eulerAngles.x >= 170)
         {
             GameManager.isNight = true;
+            RenderSettings.fog = true;
         }
         else if (transform.eulerAngles.x >= 0)
         {
@@ -55,6 +56,10 @@ public class DayAndNight : MonoBehaviour
                 //밀도를 빼서 밝게 해준다.
                 currentFogDensity -= 0.1f * fogDensityDeltaTime * Time.deltaTime;
                 RenderSettings.fogDensity = currentFogDensity;
+                if(RenderSettings.fogDensity <= 0)
+                {
+                    RenderSettings.fog = false;
+                }
             }
         }
     }

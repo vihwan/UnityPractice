@@ -42,7 +42,7 @@ public class SaveAndLoad : MonoBehaviour
         theInventory = FindObjectOfType<Inventory>();
 
         saveData.playerPos = thePlayerController.transform.position;
-        saveData.playerPos = thePlayerController.transform.eulerAngles;
+        saveData.playerRot = thePlayerController.transform.eulerAngles;
 
         Slot[] slots = theInventory.GetSlots();
         for (int i = 0; i < slots.Length; i++)

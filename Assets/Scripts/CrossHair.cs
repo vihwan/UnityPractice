@@ -53,7 +53,6 @@ public class CrossHair : MonoBehaviour
 
     public void CrouchingAnimation(bool _flag)
     {
-
         animator.SetBool("Crouching", _flag);
     }
 

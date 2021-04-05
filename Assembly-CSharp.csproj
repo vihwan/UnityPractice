@@ -93,6 +93,7 @@
     <Compile Include="Assets\Scripts\UI Scripts\DragSlot.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\HUDManager.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\Inventory.cs" />
+    <Compile Include="Assets\Scripts\UI Scripts\LoadingSceneManager.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\PauseMenu.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\PreviewObject.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\Slot.cs" />
