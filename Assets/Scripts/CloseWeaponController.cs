@@ -26,7 +26,7 @@ public abstract class CloseWeaponController : MonoBehaviour
             {
                 if (Input.GetButton("Fire1"))
                 {
-                    if (isAttack == true)
+                    if (!isAttack)
                     {
                         //Debug.Log("근접 공격시도 실행");
                         //딜레이를 준다.
@@ -42,7 +42,7 @@ public abstract class CloseWeaponController : MonoBehaviour
     protected IEnumerator AttackCoroutine()
     {
         // Debug.Log("근접 공격 코루틴 실행");
-        //isAttack = true;
+        isAttack = true;
         currentCloseWeapon.anim.SetTrigger("Attack");
 
         yield return new WaitForSeconds(currentCloseWeapon.attackDelayA); //공격중 대기시간

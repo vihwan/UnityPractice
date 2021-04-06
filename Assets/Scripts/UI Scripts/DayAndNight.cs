@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,13 +11,20 @@ public class DayAndNight : MonoBehaviour
     [SerializeField] private float fogDensityDeltaTime; //시간에 따른 안개밀도 증감량 forDensityDeltatime* 100  = secondPerRealTimeSecond
     [SerializeField] private float nightFogDensity; //밤에 얼마나 짙게 깔리는지
     [SerializeField] private float dayFogDensity; //낮 상태의 fog 밀도
-
     [SerializeField] private float currentFogDensity; //현재 안개밀도
 
     void Start()
     {
         fogDensityDeltaTime = secondPerRealTimeSecond * 0.01f;
+        InitializeFogSetting();
+    }
+
+    private void InitializeFogSetting()
+    {
         RenderSettings.fog = false;
+        RenderSettings.fogDensity = 0f;
+        currentFogDensity = 0f;
+        dayFogDensity = 0f;
     }
 
 

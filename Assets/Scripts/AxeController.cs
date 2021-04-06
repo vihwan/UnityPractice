@@ -17,10 +17,9 @@ public class AxeController : CloseWeaponController
 
     private void Update()
     {
-        if (isActivate == true)
+        if (isActivate)
         {
-          //  Debug.Log("Axe isActivate");
-            isAttack = true;
+
             TryAttack();
         }
     }

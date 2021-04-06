@@ -19,7 +19,6 @@ public class HandController : CloseWeaponController
     {
         if (isActivate)
         {
-            isAttack = true;
             TryAttack();
         }
     }

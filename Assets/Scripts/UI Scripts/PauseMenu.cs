@@ -8,7 +8,9 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject go_BaseUI;
     [SerializeField] private SaveAndLoad theSaveAndLoad;
-    [SerializeField] private Title theTitle;
+
+    private TitleUIManager theTitleUIManager;
+
 
     private void Update()
     {
@@ -44,11 +46,15 @@ public class PauseMenu : MonoBehaviour
     public void ClickLoad()
     {
         theSaveAndLoad.LoadData();
-        Debug.Log("로드");
+        CloseMenu();
+        Debug.Log("게임 내에서 로드");
     }
     public void ClickExit()
     {
-        SceneManager.LoadScene("GameTitle");
+        CloseMenu();
+        theTitleUIManager = FindObjectOfType<TitleUIManager>();
+        Destroy(theTitleUIManager.gameObject);
+        LoadingSceneManager.SetLoadScene("GameTitle");
     }
 
 }

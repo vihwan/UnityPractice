@@ -413,7 +413,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 389718445}
+      - m_Target: {fileID: 503506990}
         m_MethodName: ClickStart
         m_Mode: 1
         m_Arguments:
@@ -436,7 +436,6 @@ GameObject:
   - component: {fileID: 389718443}
   - component: {fileID: 389718442}
   - component: {fileID: 389718441}
-  - component: {fileID: 389718445}
   m_Layer: 5
   m_Name: TitleCanvas
   m_TagString: Untagged
@@ -516,27 +515,59 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 72095751}
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Father: {fileID: 503506991}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &389718445
+--- !u!1 &503506989
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 503506991}
+  - component: {fileID: 503506990}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &503506990
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 389718440}
+  m_GameObject: {fileID: 503506989}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed7a065c19c2e6c44aeb7cb710024e90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SceneName: GameScene
+--- !u!4 &503506991
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503506989}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 215.7786, y: 45.756325, z: 122.712845}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 389718444}
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1049638149
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,7 +690,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 389718445}
+      - m_Target: {fileID: 503506990}
         m_MethodName: ClickExit
         m_Mode: 1
         m_Arguments:
@@ -734,7 +765,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1386979476
 GameObject:
@@ -941,7 +972,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 389718445}
+      - m_Target: {fileID: 503506990}
         m_MethodName: ClickLoad
         m_Mode: 1
         m_Arguments:

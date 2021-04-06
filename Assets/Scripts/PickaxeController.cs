@@ -16,10 +16,9 @@ public class PickaxeController : CloseWeaponController
 
     private void Update()
     {
-        if (isActivate == true)
+        if (isActivate)
         {
             // Debug.Log("PickAxe isActivate");
-            isAttack = true;
             TryAttack();
         }
     }

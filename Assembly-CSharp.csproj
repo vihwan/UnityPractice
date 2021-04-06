@@ -99,7 +99,7 @@
     <Compile Include="Assets\Scripts\UI Scripts\Slot.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\SlotTooltip.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\StatusController.cs" />
-    <Compile Include="Assets\Scripts\UI Scripts\Title.cs" />
+    <Compile Include="Assets\Scripts\UI Scripts\TitleUIManager.cs" />
     <Compile Include="Assets\Scripts\Water\Oxygen.cs" />
     <Compile Include="Assets\Scripts\Water\Water.cs" />
     <Compile Include="Assets\Scripts\WeaponManager.cs" />
