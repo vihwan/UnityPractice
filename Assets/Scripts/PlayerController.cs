@@ -9,18 +9,12 @@ public class PlayerController : MonoBehaviour
     //보호수준은 유지되면서 인스펙터 창에서 수정할 수 있다.
     //물론 예외도 있다..
     //SerializeField는 GetComponent보다 속도가 느려서 유니티에서 권장하지 않는다
-    [SerializeField]
-    private float walkSpeed; //플레이어 속도
-    [SerializeField]
-    private float runSpeed; //달리기 속도
-    [SerializeField]
-    private float crouchSpeed;
-    [SerializeField]
-    private float swimSpeed; //수영 속도
-    [SerializeField]
-    private float swimFastSpeed; //빠르게 수영 속도
-    [SerializeField]
-    private float upSwimSpeed; //물속에서 위로 올라오는
+    [SerializeField] private float walkSpeed; //플레이어 속도
+    [SerializeField] private float runSpeed; //달리기 속도
+    [SerializeField] private float crouchSpeed;
+    [SerializeField] private float swimSpeed; //수영 속도
+    [SerializeField] private float swimFastSpeed; //빠르게 수영 속도
+    [SerializeField] private float upSwimSpeed; //물속에서 위로 올라오는
 
     private float applySpeed; //달리거나 걷거나 하는 것을 함수를 따로 만들지 않고 적용시키도록 만든 공간
 
@@ -34,15 +28,13 @@ public class PlayerController : MonoBehaviour
     private bool isCrouch = false;
 
     //앉았을 때 얼마나 앉을 지 결정하는 변수
-    [SerializeField]
-    private float crouchPosY; //앉았을때 카메라 위치
+    [SerializeField] private float crouchPosY; //앉았을때 카메라 위치
     private float originPosY; //원래 서있을 때 카메라 위치
     private float applyCrouchPosY; //위의 변수들을 적용시킬 
 
 
     //카메라 민감도
-    [SerializeField]
-    private float lookSensitivity; // 카메라의 민감도. 자신에 맞게 조절할 수 있도록
+    [SerializeField] private float lookSensitivity; // 카메라의 민감도. 자신에 맞게 조절할 수 있도록
 
     //카메라 한계
     [SerializeField]

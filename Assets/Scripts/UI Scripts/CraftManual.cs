@@ -17,7 +17,7 @@ public class CraftManual : MonoBehaviour
 {
     //상태변수
     public static bool isActivated = false;         //크래프트 UI가 활성화되어 있는가?
-    public static bool isPreviewActivated = false;  //미리보기가 생성되어있는가?
+    public static bool isCrafting = false;  //미리보기가 생성되어있는가?             //
 
     private GameObject go_Preview; //미리보기 프리팹을 담을 변수
     private GameObject go_Prefab; //실제 생성될 프리팹
@@ -50,10 +50,10 @@ public class CraftManual : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab) && !isPreviewActivated)
+        if (Input.GetKeyDown(KeyCode.Tab) && !isCrafting)
             Window();
 
-        if(isActivated || isPreviewActivated)
+        if(isActivated || isCrafting)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
                 Cancel();
@@ -61,7 +61,7 @@ public class CraftManual : MonoBehaviour
             if (Input.GetButtonDown("Fire1"))
                 Build();
         }
-        if (isPreviewActivated)
+        if (isCrafting)
             PreViewPostionUpdate();
     }
 
@@ -96,7 +96,9 @@ public class CraftManual : MonoBehaviour
         go_Prefab = craftsArray[craftsArrayNum].go_Prefab;
 
         GameManager.isOpenCraftManual = false;
-        isPreviewActivated = true;
+        GunController.isGunAttack = false;
+        CloseWeaponController.canAttack = false;
+        isCrafting = true;
         isActivated = false;
         go_BaseUI.SetActive(false);
     }
@@ -105,14 +107,14 @@ public class CraftManual : MonoBehaviour
     //미리보기 프리팹에서 왼클릭하여 빌드할 때
     private void Build()
     {
-        if (isPreviewActivated && go_Preview.GetComponent<PreviewObject>().IsBuildable())
+        if (isCrafting && go_Preview.GetComponent<PreviewObject>().IsBuildable())
         {
             Instantiate(go_Prefab, hitinfo.point, Quaternion.identity);
             Destroy(go_Preview);
             go_Preview = null;
             go_Prefab = null;
             isActivated = false;
-            isPreviewActivated = false;
+            isCrafting = false;
 
             StartCoroutine(IsActivateChangeTime());
         }
@@ -121,7 +123,9 @@ public class CraftManual : MonoBehaviour
     //건축물 설치와 동시에 바로 공격이 나가지 않도록 대기 시간을 걸어준다.
     private IEnumerator IsActivateChangeTime()
     {
-        yield return new WaitForSecondsRealtime(0.3f);
+        yield return new WaitForSeconds(1f);
+        GunController.isGunAttack = true;
+        CloseWeaponController.canAttack = true;
     }
 
     //미리보기 프리팹의 위치를 실시간으로 플레이어 초점으로 이동시킨다.
@@ -142,11 +146,11 @@ public class CraftManual : MonoBehaviour
     //빌드 과정을 취소한다면 프리팹을 파괴시키고 모든 변수를 초기화시킨다.
     private void Cancel()
     {
-        if (isPreviewActivated)
+        if (isCrafting)
             Destroy(go_Preview);
 
         isActivated = false;
-        isPreviewActivated = false;
+        isCrafting = false;
         go_Preview = null;
         go_Prefab = null;
         go_BaseUI.SetActive(false);

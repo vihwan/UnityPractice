@@ -4,14 +4,14 @@ using UnityEngine;
 using System.IO;
 
 [System.Serializable]
-public class SaveData
+public class SaveData //데이터를 저장하는 구조체
 {
-    public Vector3 playerPos;
-    public Vector3 playerRot;
+    public Vector3 playerPos;  //플레이어 위치
+    public Vector3 playerRot;  //플레이어 회전값 (오일러)
 
-    public List<int> invenArrayNumber = new List<int>();
-    public List<string> invenItemName = new List<string>();
-    public List<int> invenItemCount = new List<int>();
+    public List<int> invenArrayNumber = new List<int>();   //인벤토리 칸 인덱스 넘버
+    public List<string> invenItemName = new List<string>();//인벤토리 아이템 이름
+    public List<int> invenItemCount = new List<int>();     //인벤토리 아이템 갯수
 }
 
 

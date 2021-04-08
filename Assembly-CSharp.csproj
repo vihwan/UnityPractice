@@ -65,16 +65,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\ActionController.cs" />
-    <Compile Include="Assets\Scripts\AxeController.cs" />
     <Compile Include="Assets\Scripts\Building\SimpleTrap.cs" />
-    <Compile Include="Assets\Scripts\CloseWeapon.cs" />
-    <Compile Include="Assets\Scripts\CloseWeaponController.cs" />
     <Compile Include="Assets\Scripts\Crafts.cs" />
     <Compile Include="Assets\Scripts\CrossHair.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Scripts\Gun.cs" />
-    <Compile Include="Assets\Scripts\GunController.cs" />
-    <Compile Include="Assets\Scripts\HandController.cs" />
     <Compile Include="Assets\Scripts\Item.cs" />
     <Compile Include="Assets\Scripts\ItemEffectDatabase.cs" />
     <Compile Include="Assets\Scripts\ItemPickUp.cs" />
@@ -83,7 +77,6 @@
     <Compile Include="Assets\Scripts\NPC\FieldOfViewAngle.cs" />
     <Compile Include="Assets\Scripts\NPC\Pig.cs" />
     <Compile Include="Assets\Scripts\NPC\WeakAnimal.cs" />
-    <Compile Include="Assets\Scripts\PickaxeController.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Rock.cs" />
     <Compile Include="Assets\Scripts\SaveAndLoad.cs" />
@@ -102,8 +95,15 @@
     <Compile Include="Assets\Scripts\UI Scripts\TitleUIManager.cs" />
     <Compile Include="Assets\Scripts\Water\Oxygen.cs" />
     <Compile Include="Assets\Scripts\Water\Water.cs" />
-    <Compile Include="Assets\Scripts\WeaponManager.cs" />
-    <Compile Include="Assets\Scripts\WeaponSway.cs" />
+    <Compile Include="Assets\Scripts\Weapon\AxeController.cs" />
+    <Compile Include="Assets\Scripts\Weapon\CloseWeapon.cs" />
+    <Compile Include="Assets\Scripts\Weapon\CloseWeaponController.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Gun.cs" />
+    <Compile Include="Assets\Scripts\Weapon\GunController.cs" />
+    <Compile Include="Assets\Scripts\Weapon\HandController.cs" />
+    <Compile Include="Assets\Scripts\Weapon\PickaxeController.cs" />
+    <Compile Include="Assets\Scripts\Weapon\WeaponManager.cs" />
+    <Compile Include="Assets\Scripts\Weapon\WeaponSway.cs" />
     <None Include="Assets\Water Shader\Water_Shader.shader" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.22f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

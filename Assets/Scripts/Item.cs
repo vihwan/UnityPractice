@@ -8,8 +8,7 @@ public class Item : ScriptableObject
     //굳이 게임 오브젝트에 ADD할 필요가 없는 스크립트
 {
     public string itemName; //아이템의 이름
-    [TextArea]
-    public string itemDescription; // 아이템 설명
+    [TextArea] public string itemDescription; // 아이템 설명
     public Sprite itemImage; //아이템의 이미지
     public GameObject itemPrefab; //게임내 아이템 실체
     public ItemType itemType;

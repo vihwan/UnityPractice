@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class Water : MonoBehaviour
 {
+
+    //저항 변수
     [SerializeField] private float waterDrag; //물속 저항값
     private float originDrag; //원래 저항값
 
-    [SerializeField] private Color waterColor; //물속 색깔
-    [SerializeField] private float waterFogDensity; // 물의 탁한 정도
-
+    //색상 및 Fog정도
+    [SerializeField] private Color waterDayColor; //물속 색깔
+    [SerializeField] private float waterDayFogDensity; // 물의 탁한 정도
     [SerializeField] private Color waterNightColor;
     [SerializeField] private float waterNightFogDensity;
 
@@ -18,14 +20,19 @@ public class Water : MonoBehaviour
     //원래대로 돌아갈 변수
     private Color originColor;
     private float originFogDensity;
-
     [SerializeField] private Color originNightColor;
     [SerializeField] private float originNightFogDensity;
 
+
+    //private bool isInWater = false; //물속에 계속 들어가있는 상태인가?
+
+
+    //사운드 변수
     [SerializeField] private string sound_WaterOut;
     [SerializeField] private string sound_WaterIn;
     [SerializeField] private string sound_WaterBreathe;
 
+    //시간 변수
     [SerializeField] private float breatheTime;
     private float currentBreatheTime;
 
@@ -53,11 +60,23 @@ public class Water : MonoBehaviour
     {
         if (GameManager.isWater)
         {
+            RenderSettings.fog = true;
             currentBreatheTime += Time.deltaTime;
             if (currentBreatheTime > breatheTime)
             {
                 SoundManager.instance.PlaySE(sound_WaterBreathe);
                 currentBreatheTime = 0f;
+            }
+
+            if (GameManager.isNight)
+            {
+                RenderSettings.fogColor = waterNightColor;
+                RenderSettings.fogDensity = waterNightFogDensity;
+            }
+            else
+            {
+                RenderSettings.fogColor = waterDayColor;
+                RenderSettings.fogDensity = waterDayFogDensity;
             }
         }
         OxygenStatus();
@@ -110,28 +129,31 @@ public class Water : MonoBehaviour
     //물에 들어갔을 때
     private void GetWater(Collider _playerCollider)
     {
-        GameManager.isWater = true;
-        SoundManager.instance.PlaySE(sound_WaterIn);
-        go_BaseUI.SetActive(true);
-
-        _playerCollider.transform.GetComponent<Rigidbody>().drag = waterDrag;
-
-
-        if (!GameManager.isNight)
+        if (!GameManager.isWater)
         {
-            RenderSettings.fogColor = waterColor;
-            RenderSettings.fogDensity = waterFogDensity;
-        }
-        else
-        {
-            RenderSettings.fogColor = waterNightColor;
-            RenderSettings.fogDensity = waterNightFogDensity;
-        }
+            GameManager.isWater = true;
+            SoundManager.instance.PlaySE(sound_WaterIn);
+            go_BaseUI.SetActive(true);
+
+            _playerCollider.transform.GetComponent<Rigidbody>().drag = waterDrag;
+
+            if (!GameManager.isNight)
+            {
+                RenderSettings.fogColor = waterDayColor;
+                RenderSettings.fogDensity = waterDayFogDensity;
+            }
+            else
+            {
+                RenderSettings.fogColor = waterNightColor;
+                RenderSettings.fogDensity = waterNightFogDensity;
+            }
+        }    
     }
 
     //물에 나왔을 때
     private void GetOutWater(Collider _playerCollider)
     {
+     //   isInWater = false;
         if (GameManager.isWater)
         {
             GameManager.isWater = false;

@@ -14,19 +14,16 @@ public class ItemEffect
 
 public class ItemEffectDatabase : MonoBehaviour
 {
-    [SerializeField]
-    private ItemEffect[] itemEffects;
+    [SerializeField] private ItemEffect[] itemEffects;
 
 
     //필요한 컴포넌트
-    [SerializeField]
-    private StatusController thePlayerStatusController;
-    [SerializeField]
-    private WeaponManager theWeaponManager;
-    [SerializeField]
-    private SlotTooltip theSlotTooltop;
+    [SerializeField] private StatusController thePlayerStatusController;
+    [SerializeField] private WeaponManager theWeaponManager;
+    [SerializeField] private SlotTooltip theSlotTooltop;
 
 
+    //String 상수들
     private const string HP = "HP"
         , SP = "SP"
         , DP = "DP"

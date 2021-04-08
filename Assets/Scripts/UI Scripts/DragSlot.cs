@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class DragSlot : MonoBehaviour
 {
     public static DragSlot instance;
-
     public Slot dragSlot;
 
     [SerializeField]
@@ -17,7 +16,6 @@ public class DragSlot : MonoBehaviour
     {
         instance = this;
     }
-
 
     public void DragSetImage(Image _itemImage)
     {
@@ -31,7 +29,5 @@ public class DragSlot : MonoBehaviour
         color.a = _alpha;
         imageItem.color = color;
     }
-
-
 }
 
