@@ -10,6 +10,7 @@ TagManager:
   - StringAnimal
   - WeakAnimalSuper
   - Terrain
+  - Tree
   layers:
   - Default
   - TransparentFX

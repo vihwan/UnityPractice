@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\Rock.cs" />
     <Compile Include="Assets\Scripts\SaveAndLoad.cs" />
     <Compile Include="Assets\Scripts\SoundManager.cs" />
+    <Compile Include="Assets\Scripts\TreeComponent.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\CraftManual.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\DayAndNight.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\DragSlot.cs" />

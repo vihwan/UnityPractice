@@ -31,6 +31,11 @@ public class AxeController : CloseWeaponController
         {
             if (CheckObject())
             {
+                if (currentCloseWeapon.isAxe && hitInfo.transform.CompareTag("Tree")) //나무 베기!
+                {
+                    
+                    hitInfo.transform.GetComponent<TreeComponent>().WoodCutting(hitInfo.point);
+                }
                 isSwing = false;
             }
             yield return null;

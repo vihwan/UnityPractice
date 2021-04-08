@@ -42,7 +42,6 @@ public class GunController : MonoBehaviour
         thePlayerController = FindObjectOfType<PlayerController>();
     }
 
-
     private void Update()
     {
         if (GameManager.canPlayerMove)
@@ -57,13 +56,6 @@ public class GunController : MonoBehaviour
         }
     }
 
-    /*    private void RunningWithGun()
-        {
-            if (thePlayerController.isWalk)
-            {
-                currentGun.anim.SetBool("Walk", thePlayerController.isWalk);
-            }
-        }*/
 
     //조준 시도
     private void TryFineSight()

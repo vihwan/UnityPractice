@@ -19,6 +19,10 @@ public class CloseWeapon : MonoBehaviour
     public float attackDelayA; //공격 활성화 시점
     public float attackDelayB; //공격 비활성화 시점
 
+    public float workDelay;  // 작업 딜레이
+    public float workDelayA;  // 작업 활성화 시점.
+    public float workDelayB;  // 작업 비활성화 시점. 
+
     //필요한 컴포넌트
     public Animator anim;
 
